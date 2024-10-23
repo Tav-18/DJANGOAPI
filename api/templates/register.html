@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+    .login-image {
+      width: 50%;
+    }
+    .login-form {
+      width: 40%;
+    }
+    .btn-orange {
+      background-color: #FF8800;
+      color: white;
+    }
+    .btn-orange:hover {
+      background-color: #e07c00;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid login-container">
+  <div class="login-image text-center">
+    <img src="https://via.placeholder.com/600x400" alt="Keyboard Image" class="img-fluid">
+    <h2 class="mt-4">New to our website?</h2>
+    <p>There are advances being made in science and technology everyday, and a good example of this is the...</p>
+    <a href="#" class="btn btn-orange btn-lg">Create an Account</a>
+  </div>
+  
+  <div class="login-form">
+    <h2 class="text-center">Log In to Enter</h2>
+    <form>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="keepLoggedIn">
+        <label class="form-check-label" for="keepLoggedIn">Keep me logged in</label>
+      </div>
+      <button type="submit" class="btn btn-orange btn-block w-100">Log In</button>
+      <hr>
+      <button type="button" class="btn btn-outline-dark btn-block w-100">Google Sign In</button>
+    </form>
+    <p class="text-center mt-3">
+      <a href="#">Forgot Password?</a>
+    </p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
