@@ -33,7 +33,7 @@ from api.home.home_views import (
     elements_views,
     singleblog_views,
     singleproduct_views,
-    tracking_views,
+    tracking_views
     )
 urlpatterns = [
     path('admin/', admin.site.urls),
