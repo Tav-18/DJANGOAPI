@@ -58,8 +58,16 @@ def register_views(request):
         )
         user.save()
         messages.success(request, 'Usuario creado exitosamente')
+        
+        # Redireccionar a la página de login después de un registro exitoso
+        return redirect('login')
     
-    return redirect('login')
+    return render(request, template_name)
+
+
+
+
+
 
 # forgot views
 def forgot_views(request):

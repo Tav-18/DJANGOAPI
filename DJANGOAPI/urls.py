@@ -24,17 +24,19 @@ from api.login.login_views import (
     )
 from api.home.home_views import (
     home_views,
-    blog_views,
-    cart_views,
-    category_views,
-    checkout_views,
-    confirmation_views,
-    contact_views,
-    elements_views,
-    singleblog_views,
-    singleproduct_views,
-    tracking_views
     )
+from api.blog.blog_views import blog_views
+from api.cart.cart_views import cart_views
+from api.category.category_views import category_views
+from api.checkout.checkout_views import checkout_views
+from api.confirmation.confirmation_views import confirmation_views
+from api.contact.contact_views import contact_views
+from api.elements.elements_views import elements_views
+from api.single.single_views import singleblog_views
+from api.singel_product.singleproduct_views import singleproduct_views
+from api.tracking.tracking_views import tracking_views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login_views, name='login'),
