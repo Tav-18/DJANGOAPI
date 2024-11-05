@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+
+
 
 # view login
 
@@ -23,9 +27,39 @@ def login_views(request):
 
 # register views
 def register_views(request):
-    template_name = "registration.html"
+    template_name = "register.html"
     
-    return render(request, template_name)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_confirmation = request.POST.get('password_confirmation')
+        
+        # Validación de contraseñas
+        if password != password_confirmation:
+            messages.error(request, 'Las contraseñas no coinciden')
+            return render(request, template_name)
+        
+        # Validación de existencia de usuario
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'El usuario ya existe')
+            return render(request, template_name)
+        
+        # Validación de existencia de correo electrónico
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'El correo ya existe')
+            return render(request, template_name)
+        
+        # Creación de usuario
+        user = User(
+            username=username,
+            email=email,
+            password=make_password(password)
+        )
+        user.save()
+        messages.success(request, 'Usuario creado exitosamente')
+    
+    return redirect('login')
 
 # forgot views
 def forgot_views(request):

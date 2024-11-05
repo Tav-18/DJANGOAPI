@@ -1,14 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <style>
     body {
       background-color: #f8f9fa;
     }
+
     .login-container {
       display: flex;
       justify-content: space-between;
@@ -16,57 +22,120 @@
       height: 100vh;
       padding: 20px;
     }
+
     .login-image {
       width: 50%;
+      position: relative;
+      text-align: center;
     }
+
+    .login-image img {
+      width: 100%;
+    }
+
+    .login-image .content {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
     .login-form {
       width: 40%;
     }
+
     .btn-orange {
       background-color: #FF8800;
       color: white;
     }
+
     .btn-orange:hover {
       background-color: #e07c00;
       color: white;
     }
   </style>
 </head>
+
 <body>
 
-<div class="container-fluid login-container">
-  <div class="login-image text-center">
-    <img src="https://via.placeholder.com/600x400" alt="Keyboard Image" class="img-fluid">
-    <h2 class="mt-4">New to our website?</h2>
-    <p>There are advances being made in science and technology everyday, and a good example of this is the...</p>
-    <a href="#" class="btn btn-orange btn-lg">Create an Account</a>
-  </div>
-  
-  <div class="login-form">
-    <h2 class="text-center">Log In to Enter</h2>
-    <form>
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+  <div class="container-fluid login-container">
+    <div class="login-image text-center">
+      <div class="content">
+        <h2>New to our website?</h2>
+        <p>There are advances being made in science and technology everyday, and a good example of this is the...</p>
+        <a href="{% url 'register' %}" class="btn btn-orange btn-lg">Create an Account</a>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter your password">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="keepLoggedIn">
-        <label class="form-check-label" for="keepLoggedIn">Keep me logged in</label>
-      </div>
-      <button type="submit" class="btn btn-orange btn-block w-100">Log In</button>
-      <hr>
-      <button type="button" class="btn btn-outline-dark btn-block w-100">Google Sign In</button>
-    </form>
-    <p class="text-center mt-3">
-      <a href="#">Forgot Password?</a>
-    </p>
-  </div>
-</div>
+      <img src="{% static 'img/login.jpg' %}" alt="Keyboard Image" class="img-fluid">
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="login-form">
+      <h2 class="text-center">Register</h2>
+
+      <!-- Display messages -->
+      <div id="auth-right">
+        {% if messages %}
+          {% for message in messages %}
+            {% if message.tags == "error" %}
+              <div id="error-message" class="alert alert-danger">
+                <h4 class="alert-heading">{{ message }}</h4>
+              </div>
+            {% elif message.tags == "success" %}
+              <div id="success-message" class="alert alert-success">
+                <h4 class="alert-heading">{{ message }}</h4>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+      
+      <form method="POST" onsubmit="return validatePassword()">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirm_password" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="confirm_password" placeholder="Confirm your password" name="password_confirmation" required>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="keepLoggedIn">
+          <label class="form-check-label" for="keepLoggedIn">Keep me logged in</label>
+        </div>
+        <button type="submit" class="btn btn-orange btn-block w-100">Register</button>
+        <hr>
+        <button type="button" class="btn btn-outline-dark btn-block w-100">Google Sign In</button>
+      </form>
+      <p class="text-center mt-3">
+        <a href="{% url 'forgot' %}">Forgot Password?</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function validatePassword() {
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
+      if (password !== confirmPassword) {
+        alert("Passwords do not match. Please try again.");
+        return false;
+      }
+      return true;
+    }
+  </script>
 </body>
+
 </html>

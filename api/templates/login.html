@@ -39,7 +39,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+					<a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
@@ -116,7 +116,7 @@
 					<h1>Login/Register</h1>
 					<nav class="d-flex align-items-center">
 						<a href="{% url 'home' %}">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Login/Register</a>
+						<a href="{% url 'register' %}">Login/Register</a>
 					</nav>
 				</div>
 			</div>
@@ -272,7 +272,7 @@
 			</div>
 		</div>
 	</footer>
-	< !--End footer Area-->
+	<!--End footer Area-->
 
 
 		<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
